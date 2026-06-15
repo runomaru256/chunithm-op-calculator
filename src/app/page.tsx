@@ -56,6 +56,9 @@ export default function Home() {
         <p className="text-sky-300 text-xs mt-1">
           chunirec API を使用 / 非公式ツール / CHUNITHM は株式会社セガの商標です
         </p>
+        <p className="mt-2">
+          <a href="/privacy" className="text-sky-400 text-xs hover:underline">プライバシーポリシー</a>
+        </p>
       </footer>
     </div>
   );
