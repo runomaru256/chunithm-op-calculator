@@ -78,13 +78,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="font-bold text-sky-700 mb-2">お問い合わせ</h2>
             <p>
-              本サービスに関するお問い合わせは、
-              <a
-                href="https://twitter.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sky-600 underline"
-              >X（旧Twitter）</a>のDMにてご連絡ください。
+              本サービスに関するお問い合わせは、X（旧Twitter）のDMにてご連絡ください。
             </p>
           </section>
 
