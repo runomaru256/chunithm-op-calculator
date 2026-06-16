@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'CHUNI OP Calculator',
   description: 'CHUNITHM Over Power 計算・目標達成支援ツール',
   keywords: ['CHUNITHM', 'OP', 'Over Power', 'チュウニズム', '目標'],
+  other: {
+    'google-adsense-account': 'ca-pub-2828611180071453',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
