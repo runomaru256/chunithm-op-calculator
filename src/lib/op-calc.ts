@@ -36,6 +36,7 @@ export function calcOP(
   is_aj: boolean,
   isAJC = false,
 ): number {
+  if (score === 0) return 0; // 未プレイ（スコアなし）はOP貢献0
   const base = (level + 2) * 5;
   const fcBonus = isAJC ? 1.25 : is_aj ? 1.0 : is_fc ? 0.5 : 0;
   const scoreBonus = score >= 1007500 ? Math.min((score - 1007500) * 0.0015, 3.75) : 0;

@@ -31,7 +31,8 @@ export default function RecommendList() {
         localDiffs.includes(e.difficulty) &&
         filterLevelBuckets.includes(constToBucket(e.level)) &&
         e.effectiveOpGap > 0.001 &&
-        e.score < 1010000,
+        e.score > 0 &&       // 未プレイ曲を除外
+        e.score < 1010000,   // MAX達成済みを除外
     );
 
     const cmp = (a: ChartEntry, b: ChartEntry): number => {

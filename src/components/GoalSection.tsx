@@ -6,9 +6,17 @@ import { fmtPercent } from '@/lib/utils';
 
 export default function GoalSection() {
   const charts = useStore(s => s.charts);
+  const profile = useStore(s => s.profile);
+  const profileOpPercent = useStore(s => s.profileOpPercent);
   const goalPercent = useStore(s => s.goalPercent);
   const setGoalPercent = useStore(s => s.setGoalPercent);
-  const { totalOP, totalMaxOP, percent } = calcTotals(charts);
+  const { totalOP: calcTotalOP, totalMaxOP: calcMaxOP, percent: calcPercent } = calcTotals(charts);
+  const profileRawOP = profile?.over_power != null ? Number(profile.over_power) : null;
+  const percent      = profileOpPercent ?? calcPercent;
+  const totalOP      = profileRawOP ?? calcTotalOP;
+  const totalMaxOP   = (profileRawOP != null && percent > 0)
+    ? profileRawOP / (percent / 100)
+    : calcMaxOP;
 
   const patterns = calcAchievementPatterns(charts, totalOP, totalMaxOP, goalPercent);
   const alreadyAchieved = percent >= goalPercent;

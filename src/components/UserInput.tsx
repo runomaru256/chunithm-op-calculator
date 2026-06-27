@@ -66,6 +66,14 @@ export default function UserInput() {
       store.setProfile(profile);
       store.setUserName(name);
 
+      // chunirec の公式 OP% をストアに保持（0〜1 の小数 or 0〜100 のどちらも対応）
+      if (profile.over_power_progress != null) {
+        const raw = Number(profile.over_power_progress);
+        store.setProfileOpPercent(raw > 1 ? raw : raw * 100);
+      } else {
+        store.setProfileOpPercent(null);
+      }
+
       const { totalOP, totalMaxOP, percent } = calcTotals(charts);
       addHistoryEntry({
         date: new Date().toISOString(),

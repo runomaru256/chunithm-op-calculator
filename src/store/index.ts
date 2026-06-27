@@ -19,6 +19,10 @@ interface AppState {
   error: string | null;
   setError: (v: string | null) => void;
 
+  // chunirec profile から取得した公式 OP%（null = 未取得）
+  profileOpPercent: number | null;
+  setProfileOpPercent: (v: number | null) => void;
+
   goalPercent: number;
   setGoalPercent: (v: number) => void;
 
@@ -50,6 +54,9 @@ export const useStore = create<AppState>((set) => ({
 
   error: null,
   setError: (error) => set({ error }),
+
+  profileOpPercent: null,
+  setProfileOpPercent: (profileOpPercent) => set({ profileOpPercent }),
 
   goalPercent: 99.0,
   setGoalPercent: (goalPercent) => set({ goalPercent }),

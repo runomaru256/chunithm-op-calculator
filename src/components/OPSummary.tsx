@@ -7,7 +7,17 @@ import { fmtPercent } from '@/lib/utils';
 export default function OPSummary() {
   const charts = useStore(s => s.charts);
   const profile = useStore(s => s.profile);
-  const { totalOP, totalMaxOP, percent } = calcTotals(charts);
+  const profileOpPercent = useStore(s => s.profileOpPercent);
+  const { totalOP: calcOP, totalMaxOP: calcMaxOP, percent: calcPercent } = calcTotals(charts);
+
+  // profile の公式値を優先して使用
+  const profileRawOP = profile?.over_power != null ? Number(profile.over_power) : null;
+  const percent     = profileOpPercent ?? calcPercent;
+  const totalOP     = profileRawOP ?? calcOP;
+  // totalMaxOP を公式値から逆算（over_power / percent * 100）、なければ計算値
+  const totalMaxOP  = (profileRawOP != null && percent > 0)
+    ? profileRawOP / (percent / 100)
+    : calcMaxOP;
 
   const barWidth = Math.min(100, percent);
 
@@ -29,7 +39,6 @@ export default function OPSummary() {
               className="absolute inset-y-0 left-0 bg-gradient-to-r from-sky-400 to-sky-500 rounded-full transition-all duration-700"
               style={{ width: `${barWidth}%` }}
             />
-            {/* 目安ライン */}
             {([97.5, 99.0, 99.5] as number[]).map(v => (
               <div
                 key={v}
@@ -50,7 +59,7 @@ export default function OPSummary() {
         <div className="grid grid-cols-2 gap-3 text-center shrink-0">
           <Stat label="現在OP合計" value={totalOP.toFixed(2)} />
           <Stat label="理論値OP" value={totalMaxOP.toFixed(2)} />
-          <Stat label="対象譜面数" value={`${charts.length}譜面`} />
+          <Stat label="対象譜面数" value={`${charts.filter(e => e.score > 0).length}譜面`} />
           {profile?.rating != null && (
             <Stat label="レーティング" value={Number(profile.rating).toFixed(2)} />
           )}

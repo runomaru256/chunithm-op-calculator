@@ -14,7 +14,9 @@ const TIERS: { key: PossessionTier; label: string; color: string; req: string }[
 
 export default function PossessionStatus() {
   const charts = useStore(s => s.charts);
-  const { percent } = calcTotals(charts);
+  const profileOpPercent = useStore(s => s.profileOpPercent);
+  const { percent: calcPercent } = calcTotals(charts);
+  const percent = profileOpPercent ?? calcPercent;
   const poss = calcPossession(charts, percent);
 
   const missingMap: Record<PossessionTier, typeof charts> = {
